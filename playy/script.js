@@ -1,8 +1,9 @@
 import { Easings } from '../ixfx/modulation.js';
 
-const easing = Easings.time('sineInOut', 7000);
+const easing = Easings.time('sineInOut', 10000);
 
 // #region Settings & state
+// @ts-ignore
 const settings = Object.freeze({
 
 });
@@ -31,10 +32,12 @@ const use = () => {
   if (thing) {
     const translateX = easingValue * 500;
     const translateY = Math.sin(easingValue * Math.PI * 2) * 30; // Adjust the amplitude of the wiggle effect by changing the multiplier
+    // @ts-ignore
     thing.style.transform = `translate(${translateX}px, ${translateY}px)`;
   }
 
   // Update state
+  // @ts-ignore
   saveState({ easingValue: easing.compute() });
 };
 
@@ -44,6 +47,7 @@ function setup() {
     #thing {
       width: 100px;
       height: 100px;
+      border-radius: 50%;
       background-color: red;
       position: absolute;
       top: 50%;
@@ -64,6 +68,7 @@ function setup() {
 // Add an event listener to start the animation when the button is clicked
 // @ts-ignore
 document.getElementById('startButton').addEventListener('click', () => {
+  // @ts-ignore
   saveState({ isRunning: true });
 });
 
