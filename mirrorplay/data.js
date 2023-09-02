@@ -19,12 +19,15 @@ const use = () => {
   const spotElement = /** @type HTMLElement */(document.querySelector(`#spot`));
 
   // 0..100
-  const saturation = Math.round(slider*100);
+  const saturation = Math.round(slider * 100);
   const hsl = `hsl(var(--hue), ${saturation}%, 50%)`;
+
   if (spotElement && !fullMode) {
     spotElement.style.backgroundColor = hsl;
+    spotElement.style.width = `${slider * 200}px`; // Change the width of the box
+    spotElement.style.height = `${slider * 200}px`; // Change the height of the box
   } else if (fullMode) {
-    document.body.style.backgroundColor = hsl; 
+    document.body.style.backgroundColor = hsl;
   }
 };
 
@@ -40,12 +43,12 @@ const setup = () => {
   });
 
   const buttonFullScreen = /** @type HTMLElement */(document.querySelector(`#btnFullScreen`));
-  
+
   buttonFullScreen.addEventListener(`click`, event => {
     document.documentElement.requestFullscreen();
   });
   if (!fullMode) buttonFullScreen.style.display =`none`;
-  
+
   if (fullMode) {
     const spotElement = /** @type HTMLElement */(document.querySelector(`#spot`));
     if (spotElement) spotElement.style.display = `none`;
