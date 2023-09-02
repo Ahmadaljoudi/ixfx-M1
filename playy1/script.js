@@ -1,24 +1,28 @@
-import { Easings } from '../ixfx/modulation.js';
+import { Easings } from "../ixfx/modulation.js";
 
-const easing = Easings.time('quintIn', 10000);
+const easing = Easings.time("quintIn", 10000);
 
 // #region Settings & state
 // @ts-ignore
-const settings = Object.freeze({
-
-});
+const settings = Object.freeze({});
 
 let state = Object.freeze({
   easingValue: 0,
   isRunning: false, // Add a new state variable to track if the animation is running
   startTime: 0, // Added a start time for the mouse click event.
   originalCircleSpeed: 500,
+  holdingValue: 0,
 });
 // #endregion
 
-
 const use = () => {
-  const { easingValue, isRunning, startTime, originalCircleSpeed } = state;
+  const {
+    easingValue,
+    isRunning,
+    startTime,
+    originalCircleSpeed,
+    holdingValue,
+  } = state;
 
   // Calculate the duration based on the current time and start time
   const duration = Date.now() - startTime;
@@ -29,7 +33,7 @@ const use = () => {
   }
 
   // Adjust the speed of the circle animation based on the duration
-  const speedFactor = 1 + (duration / 1000); // Adjust this factor as needed
+  const speedFactor = 1 + duration / 1000; // Adjust this factor as needed
   const circleSpeed = originalCircleSpeed * speedFactor; // Use the adjusted speed
 
   // Use easingValue compined with circleSpeed:
@@ -46,27 +50,36 @@ const use = () => {
 
   // Update state
   saveState({ easingValue: easing.compute() });
+
+  // Update the holding value on the screen
+  const holding = document.getElementById("holding");
+  if (holding) {
+    holding.textContent = "Held for " + holdingValue + "ms";
+  }
 };
 
 function setup() {
-// Add an event listener for the button click event
-const startButton = document.getElementById('startButton');
-// @ts-ignore
-startButton.addEventListener('mousedown', () => {
-  saveState({ isRunning: true, startTime: Date.now() });
-});
+  const { holdingValue } = state;
+  const holding = document.getElementById("holding");
 
-startButton.addEventListener('mouseup', () => {
-  saveState({ isRunning: false });
+  // Add an event listener for the button click event
+  const startButton = document.getElementById("startButton");
+  // @ts-ignore
+  startButton.addEventListener("mousedown", () => {
+    saveState({ isRunning: true, startTime: Date.now() });
+  });
 
-  const duration = Date.now() - state.startTime;
-  console.log('Button press duration:', duration, 'ms');
-});
+  startButton.addEventListener("mouseup", () => {
+    saveState({ isRunning: false });
 
-setInterval(use, 1);
+    const duration = Date.now() - state.startTime;
+    console.log("Button press duration:", duration, "ms");
+    if (holding) saveState({ holdingValue: duration });
+    holding.textContent = "Held for " + duration + "ms";
+  });
+
+  setInterval(use, 1);
 }
-
-
 
 /**
  * Save state
