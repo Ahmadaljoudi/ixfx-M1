@@ -4,19 +4,21 @@ const easing = Easings.time("quintIn", 10000);
 
 // #region Settings & state
 // @ts-ignore
+// @ts-ignore
 const settings = Object.freeze({});
 
 let state = Object.freeze({
   easingValue: 0,
   isRunning: false, // Add a new state variable to track if the animation is running
   startTime: 0, // Added a start time for the mouse click event.
-  originalCircleSpeed: 500,
+  originalCircleSpeed: 700,
   holdingValue: 0,
 });
 // #endregion
 
 const use = () => {
   const {
+    // @ts-ignore
     easingValue,
     isRunning,
     startTime,
@@ -33,7 +35,7 @@ const use = () => {
   }
 
   // Adjust the speed of the circle animation based on the duration
-  const speedFactor = 1 + duration / 1000; // Adjust this factor as needed
+  const speedFactor = 1 + duration / 500; // Adjust this factor as needed
   const circleSpeed = originalCircleSpeed * speedFactor; // Use the adjusted speed
 
   // Use easingValue compined with circleSpeed:
@@ -49,6 +51,7 @@ const use = () => {
   }
 
   // Update state
+  // @ts-ignore
   saveState({ easingValue: easing.compute() });
 
   // Update the holding value on the screen
@@ -59,6 +62,7 @@ const use = () => {
 };
 
 function setup() {
+  // @ts-ignore
   const { holdingValue } = state;
   const holding = document.getElementById("holding");
 
@@ -66,15 +70,19 @@ function setup() {
   const startButton = document.getElementById("startButton");
   // @ts-ignore
   startButton.addEventListener("mousedown", () => {
+    // @ts-ignore
     saveState({ isRunning: true, startTime: Date.now() });
   });
 
+  // @ts-ignore
   startButton.addEventListener("mouseup", () => {
     saveState({ isRunning: false });
 
     const duration = Date.now() - state.startTime;
     console.log("Button press duration:", duration, "ms");
+    // @ts-ignore
     if (holding) saveState({ holdingValue: duration });
+    // @ts-ignore
     holding.textContent = "Held for " + duration + "ms";
   });
 
