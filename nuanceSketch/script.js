@@ -23,15 +23,15 @@ const use = () => {
 
   // Use easingValue somehow... here's two examples:
 
-  // 1. Display value
+  // 1. Display values
   const easingValueElement = document.querySelector(`#easingValue`);
   if (easingValueElement)
     easingValueElement.textContent = easingValue.toFixed(2);
-  // 2. Show clicking speed
+
   const speedo = document.querySelector(`#speedo`);
   if (speedo) speedo.textContent = clickSpeed.toFixed(2);
 
-  //2. Use it to offset an element
+  // 2. Use it to Change the elemnent place
   const thing = document.querySelector(`#thing`);
   if (thing) {
     // Make the thing move depending on the x axes and click speed
