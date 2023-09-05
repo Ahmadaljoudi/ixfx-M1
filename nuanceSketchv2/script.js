@@ -1,6 +1,6 @@
 import { Easings } from "../ixfx/modulation.js";
 
-const easing = Easings.time("quintIn", 5000);
+const easing = Easings.time("quintIn", 10000);
 
 // #region Settings & state
 // @ts-ignore
@@ -9,41 +9,57 @@ const settings = Object.freeze({});
 let state = Object.freeze({
   easingValue: 0,
   isRunning: false,
-  clickSpeed: 0, // Add a new state variable to track the click speed
+  clickSpeed: 0,
+  lastClickTime: Date.now(),
+  directionx: 1,
 });
 // #endregion
 
 const use = () => {
-  const { easingValue, isRunning, clickSpeed } = state;
+  const { easingValue, isRunning, clickSpeed, directionx } = state;
+
+  const updatedEasing = (easing.compute() + 0.00000001) % 1;
+
+  // Update state
+  saveState({
+    ...state,
+    easingValue: updatedEasing,
+  });
 
   // Only run the animation if isRunning is true
   if (!isRunning) {
     return;
   }
 
-  // Use easingValue somehow... here's two examples:
-
   // 1. Display values
   const easingValueElement = document.querySelector(`#easingValue`);
-  if (easingValueElement)
+  if (easingValueElement) {
     easingValueElement.textContent = easingValue.toFixed(2);
-
-  const speedo = document.querySelector(`#speedo`);
-  if (speedo) speedo.textContent = clickSpeed.toFixed(2);
-
-  // 2. Use it to Change the elemnent place
-  const thing = document.querySelector(`#thing`);
-  if (thing) {
-    // Make the thing move depending on the x axes and click speed
-    const translateX = easingValue * 500 * clickSpeed;
-    const translateY = Math.sin(easingValue * Math.PI * 2) * 50; // Adjust the amplitude of the wiggle effect by changing the multiplier
-    // @ts-ignore
-    thing.style.transform = `translate(${translateX}px, 0px)`;
   }
 
-  // Update state
-  // @ts-ignore
-  saveState({ easingValue: easing.compute() });
+  const speedo = document.querySelector(`#speedo`);
+  if (speedo) {
+    speedo.textContent = clickSpeed.toFixed(2);
+  }
+
+  // 2. Use it to Change the element's position
+  const thing = document.querySelector(`#thing`);
+
+  if (thing) {
+    const windowWidth = window.innerWidth;
+    const ballWidth = thing.getBoundingClientRect().width;
+    const maxTranslateX = windowWidth - ballWidth;
+    let translateX = 5000 * easingValue * directionx;
+
+    if (translateX > maxTranslateX || translateX < 0) {
+      directionx *= -1; // Reverse the direction
+    }
+
+    // Adjust translateX based on direction
+    translateX += directionx;
+
+    thing.style.transform = `translate(${translateX}px, 0px)`;
+  }
 };
 
 function setup() {
@@ -70,10 +86,10 @@ function setup() {
 
 // Calculates the click speed based on the time between clicks
 function calculateClickSpeed() {
+  const { lastClickTime, ...rest } = state;
   const currentTime = Date.now();
-  const lastClickTime = state.lastClickTime || currentTime;
-  const clickSpeed = 1000 / (currentTime - lastClickTime); // Speed in clicks per second
-  saveState({ lastClickTime: currentTime });
+  const clickSpeed = 1 / ((currentTime - lastClickTime) / 1000); // Speed in clicks per second
+  saveState({ ...rest, lastClickTime: currentTime });
   return clickSpeed;
 }
 
