@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Easing Example</title>
+  <title>EZ</title>
 </head>
 
 <style>
   body{
+    max-width: 100%;
     background-color: rgba(84, 58, 58, 0.525);
     display: flex;
     justify-content: center;
+    overflow: hidden;
   }
   #thing {
   width: 150px;
@@ -16,8 +18,10 @@
   border-radius: 50%;
   background-color: rgb(18, 89, 105);
   position: absolute;
+  transform: (50%, -50%);
   top: 50%;
   left: 10%; /* Adjust the left position as desired */
+
   transition: transform 0.1s, background-color 1s;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 }

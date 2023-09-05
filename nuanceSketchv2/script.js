@@ -1,4 +1,6 @@
 import { Easings } from "../ixfx/modulation.js";
+const easingValueElement = document.querySelector(`#easingValue`);
+const speedo = document.querySelector(`#speedo`);
 
 const easing = Easings.time("quintIn", 10000);
 
@@ -11,14 +13,17 @@ let state = Object.freeze({
   isRunning: false,
   clickSpeed: 0,
   lastClickTime: Date.now(),
-  directionx: 1,
 });
 // #endregion
 
 const use = () => {
-  const { easingValue, isRunning, clickSpeed, directionx } = state;
+  const { easingValue, isRunning, clickSpeed } = state;
+  const updatedEasing = easing.compute();
 
-  const updatedEasing = (easing.compute() + 0.00000001) % 1;
+  // only run the animation if isRunning is true
+  if (!isRunning) {
+    return;
+  }
 
   // Update state
   saveState({
@@ -26,39 +31,23 @@ const use = () => {
     easingValue: updatedEasing,
   });
 
-  // Only run the animation if isRunning is true
-  if (!isRunning) {
-    return;
-  }
-
-  // 1. Display values
-  const easingValueElement = document.querySelector(`#easingValue`);
   if (easingValueElement) {
     easingValueElement.textContent = easingValue.toFixed(2);
   }
 
-  const speedo = document.querySelector(`#speedo`);
   if (speedo) {
     speedo.textContent = clickSpeed.toFixed(2);
   }
 
-  // 2. Use it to Change the element's position
-  const thing = document.querySelector(`#thing`);
+  // REGION FOR ANIMATION
+
+  const thing = document.querySelector("#thing");
+  let width = screen.width;
+
+  let speedOfMoving = easingValue * 500 * clickSpeed;
 
   if (thing) {
-    const windowWidth = window.innerWidth;
-    const ballWidth = thing.getBoundingClientRect().width;
-    const maxTranslateX = windowWidth - ballWidth;
-    let translateX = 5000 * easingValue * directionx;
-
-    if (translateX > maxTranslateX || translateX < 0) {
-      directionx *= -1; // Reverse the direction
-    }
-
-    // Adjust translateX based on direction
-    translateX += directionx;
-
-    thing.style.transform = `translate(${translateX}px, 0px)`;
+    thing.style.transform = `translate(${speedOfMoving}px, 0px)`;
   }
 };
 
