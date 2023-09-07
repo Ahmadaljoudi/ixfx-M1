@@ -1,6 +1,7 @@
 // #region Settings & state
 
 // Define the initial application state
+// @ts-ignore
 let state = {
   ballSpeed: 1,
   ballDirection: 1,
@@ -10,18 +11,24 @@ let state = {
 };
 
 // Get the DOM elements needed for the application
+// @ts-ignore
 const container = document.getElementById("container");
+// @ts-ignore
 const ball = document.getElementById("ball");
+// @ts-ignore
 const button = document.getElementById("button");
 
 // #endregion
 
+// @ts-ignore
 const use = () => {
   // Get the current state values
   let { ballSpeed, ballDirection, ballX, animationFrameId } = state;
 
   // The dimensions of the container and ball
+  // @ts-ignore
   const containerWidth = container.offsetWidth;
+  // @ts-ignore
   const ballWidth = ball.offsetWidth;
 
   // Update ball position
@@ -33,6 +40,7 @@ const use = () => {
   }
 
   // Update the position of the ball in the DOM
+  // @ts-ignore
   ball.style.left = ballX + "px";
 
   // Update the state with the new values
@@ -49,16 +57,20 @@ function setup() {
   animate();
 
   // Increase ball speed on button click
+  // @ts-ignore
   button.addEventListener("click", () => {
     const clickSpeed = calculateClickSpeed();
     const newSpeed = clickSpeed;
     saveState({ ballSpeed: newSpeed });
-    console.log(newSpeed);
+    const speed = document.getElementById("speed");
+    // @ts-ignore
+    speed.textContent = `Controlled speed : ${newSpeed.toFixed(2)}`;
   });
 }
 
 function animate() {
   use();
+  // @ts-ignore
   state.animationFrameId = requestAnimationFrame(animate);
 }
 
@@ -83,6 +95,7 @@ function calculateClickSpeed() {
 
 // Cleanup function to stop the animation when the window is closed or navigated away
 window.addEventListener("beforeunload", () => {
+  // @ts-ignore
   cancelAnimationFrame(state.animationFrameId);
 });
 
