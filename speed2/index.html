@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ball Movement</title>
+    <style>
+
+        body {
+            background-color: rgb(34, 34, 34);
+        }
+        #container {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        #ball {
+            position: absolute;
+            top : 65%;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        #button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            position: fixed;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            top: 70%;
+            background-color: rgba(7, 7, 7, 0.779);
+            color : white;
+        }
+
+        p {
+            font-size: 20px;
+            position: fixed;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            top: 80%;
+            color : white;
+            
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="ball"></div>
+    </div>
+    <button id="button"></button>
+    <p><span id="speed"></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
