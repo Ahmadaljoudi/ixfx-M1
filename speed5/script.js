@@ -1,6 +1,7 @@
 // #region Settings & state
 
 // Define the initial application state
+
 let state = {
   ballSpeed: 0,
   ballDirection: 1,
@@ -8,10 +9,9 @@ let state = {
   animationFrameId: null,
   lastClickTime: Date.now(),
   maxSpeed: 20,
-  acceleration: 0.05,
-  deceleration: 0.02,
+  acceleration: 0.01,
+  deceleration: 0.01,
   isClicked: false,
-  minSpeed: 2, // the minimum speed below which the bicycle (ball) stops entirely.
 };
 
 // Get the DOM elements needed for the application
@@ -31,7 +31,6 @@ const use = () => {
     deceleration,
     maxSpeed,
     isClicked,
-    minSpeed,
   } = state;
 
   // The dimensions of the container and ball
@@ -41,10 +40,8 @@ const use = () => {
   // Accelerate the ball to a maximum speed if button is clicked, decelerate otherwise
   if (isClicked && ballSpeed < maxSpeed) {
     ballSpeed += acceleration;
-  } else if (!isClicked && ballSpeed > minSpeed) {
+  } else if (!isClicked && ballSpeed > 0) {
     ballSpeed -= deceleration;
-  } else {
-    ballSpeed = 0;
   }
 
   // Update ball position
@@ -60,10 +57,13 @@ const use = () => {
 
   // Update the size and color of the button based on the ball's speed
   const buttonSize = Math.max(10, ballSpeed * 10) + "px";
-  const buttonColor = `rgb(${Math.max(0, 255 - ballSpeed * 100)}, 0, 0)`;
+  const buttonColor = `rgb(${Math.max(0, 255 - ballSpeed * 100)}, 100, 0)`;
   button.style.width = buttonSize;
   button.style.height = buttonSize;
   button.style.backgroundColor = buttonColor;
+
+  // print the speed and the acceleration to the console log
+  console.log(ballSpeed, acceleration);
 
   // Update the state with the new values
   saveState({
@@ -74,7 +74,6 @@ const use = () => {
     deceleration,
     maxSpeed,
     isClicked,
-    minSpeed,
   });
 };
 
