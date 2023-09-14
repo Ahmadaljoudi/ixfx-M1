@@ -1,4 +1,4 @@
-let state = {
+let state = Object.freeze({
   ballSpeed: 0,
   ballDirection: 1,
   ballX: 0,
@@ -8,7 +8,7 @@ let state = {
   deceleration: 0.02,
   startTime: Date.now(),
   highFriction: false, // New state to toggle between high and low friction
-};
+});
 
 const container = document.getElementById("container");
 const ball = document.getElementById("ball");
