@@ -8,9 +8,9 @@ let state = {
   ballX: 0,
   animationFrameId: null,
   lastClickTime: Date.now(),
-  maxSpeed: 20,
-  acceleration: 0.01,
-  deceleration: 0.01,
+  maxSpeed: 40,
+  acceleration: 0.3,
+  deceleration: 0.5,
   isClicked: false,
 };
 

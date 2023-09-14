@@ -1,6 +1,6 @@
 // #region Settings & state
 
-// Define the initial application state
+// Define the initial state
 let state = {
   ballSpeed: 2,
   ballDirection: 1,

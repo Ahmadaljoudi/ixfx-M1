@@ -2,15 +2,19 @@
 
 // Define the initial application state
 
+// Add friction from oscilator and then make it seem like there is some sort of friction going on 
+// Depending on the hue of the background, the harder for the ball to push
+// And then make it so becomes depending on the clicks instead of longer press.
+
 let state = {
   ballSpeed: 0,
   ballDirection: 1,
   ballX: 0,
   animationFrameId: null,
   lastClickTime: Date.now(),
-  maxSpeed: 20,
-  acceleration: 0.01,
-  deceleration: 0.01,
+  maxSpeed: 400,
+  acceleration: 0.3,
+  deceleration: 0.9,
   isClicked: false,
 };
 
@@ -56,7 +60,7 @@ const use = () => {
   ball.style.left = ballX + "px";
 
   // Update the size and color of the button based on the ball's speed
-  const buttonSize = Math.max(10, ballSpeed * 10) + "px";
+  const buttonSize = Math.max(10, ballSpeed) + "px";
   const buttonColor = `rgb(${Math.max(0, 255 - ballSpeed * 100)}, 100, 0)`;
   button.style.width = buttonSize;
   button.style.height = buttonSize;
