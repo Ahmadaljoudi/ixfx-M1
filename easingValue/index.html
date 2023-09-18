@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Easing Example</title>
+  <style>
+    body{
+      background-color: rgb(36, 129, 117);
+    }
+    #thing {
+ 
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: rgb(108, 35, 113);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, background-color 1s;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    
+    }
+
+    button{
+      width: 150px;
+      height: 50px;
+      position: fixed;
+      top:30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgb(105, 49, 49);
+      color: rgb(255, 255, 255);
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.1s, background-color 1s;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+      font: 25px Tahoma, Geneva, Verdana, sans-serif;
+
+
+    }
+  </style>
+</head>
+<body>
+  <div id="thing"></div>
+
+  <button id="btn">Start</button>
+  <p>Easing value : <span id="vlu"></span></p>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>

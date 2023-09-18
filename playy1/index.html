@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Easing Example</title>
+  <style>
+    #thing {
+ 
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: blue;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, background-color 1s;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    
+    }
+  </style>
+</head>
+<body>
+  <div id="thing"></div>
+  <p>Easing Value: <span id="easingValue">0.00</span></p>
+  <p>Holding for : <span id="holding">0.00</span></p>
+
+  <button id="startButton">Start</button>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>

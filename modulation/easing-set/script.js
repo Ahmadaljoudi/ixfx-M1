@@ -1,4 +1,3 @@
-
 import { continuously } from '../../ixfx/flow.js';
 import { Easings } from '../../ixfx/modulation.js';
 import * as Util from './util.js';

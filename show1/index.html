@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EZ</title>
+</head>
+
+<style>
+  body{
+    max-width: 100%;
+    background-color: rgba(84, 58, 58, 0.525);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+  #thing {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: rgb(18, 89, 105);
+  position: absolute;
+  transform: (50%, -50%);
+  top: 50%;
+  left: 10%; /* Adjust the left position as desired */
+
+  transition: transform 0.1s, background-color 1s;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+#startButton {
+  position: absolute;
+  top: 10px; /* Adjust the top position as desired */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+p{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: rgb(5, 5, 5);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  text-align: center;
+
+}
+
+p:nth-child(2){
+  top: 40%;
+}
+</style>
+<body>
+  <div id="thing"></div>
+  <p>Easing Value: <span id="easingValue">0.00</span></p>
+  <p>Click speed : <span id="speedo"></span></p>
+
+  <button id="startButton">Start</button>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>
